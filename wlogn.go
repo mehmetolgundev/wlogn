@@ -1,6 +1,7 @@
 package wlogn
 
 import (
+	"bufio"
 	"fmt"
 	"net"
 )
@@ -22,8 +23,8 @@ func (w *Wlogn) Listen(port int) error {
 	if err != nil {
 		return err
 	}
-	var data []byte
-	_, err = conn.Read(data)
+	reader := bufio.NewReader(conn)
+	data, err := reader.ReadString('\n')
 	if err != nil {
 		return err
 	}
